@@ -4,13 +4,13 @@ import MySQLdb
 
 RSS_URL = "url"
 
-yahoo_news = feedparser.parse(RSS_URL)
+yahoo_news = feedparser.parse("url")
 
 for entry in yahoo_news.entries:
 
- title = (entry.title).encode("shift-jis")
- link  = (entry.link).encode("shift-jis")
- date  = (entry.updated).encode("shift-jis")
+ title = (entry.title)
+ link  = (entry.link)
+ date  = (entry.updated)
 
  
 
@@ -21,10 +21,11 @@ for entry in yahoo_news.entries:
  connect = MySQLdb.connect(host='********',
                       user='********',
                       passwd='********',
-                      db='db')
- cursor = connect.cursor()
+                      db='********',
+                      charset='utf8')
 
- cursor.execute ("insert into rss(title,link,date)values(%s,%s,%s)",(title,link,date))
+ cursor = connect.cursor()
+ cursor.execute("insert into rss(title,link,date)values(%s,%s,%s)",(title,link,date))
 
 
  connect.commit()
